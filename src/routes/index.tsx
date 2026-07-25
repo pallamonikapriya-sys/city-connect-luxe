@@ -21,7 +21,7 @@ export const Route = createFileRoute("/")({
       { property: "og:title", content: "Nagaram AI — Hyderabad routes, traffic & civic complaints" },
       {
         property: "og:description",
-        content: "Talk to Hyderabad in Telugu or English. Routes, traffic and civic complaints in one place.",
+        content: "A cinematic Hyderabad companion: Telugu and English voice assistant, best bus and metro routes, congestion predictions, and water and garbage complaints routed to GHMC and HMWSSB.",
       },
     ],
   }),

@@ -80,21 +80,23 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Nagaram AI — Hyderabad civic & travel assistant" },
+      { title: "Nagaram AI — Hyderabad routes, traffic & civic complaints" },
       {
         name: "description",
         content:
-          "Telugu and English AI assistant for Hyderabad: bus and metro routes, traffic predictions, water and garbage complaints routed to GHMC and HMWSSB.",
+          "A cinematic Hyderabad companion: Telugu and English voice assistant, best bus and metro routes, congestion predictions, and water and garbage complaints routed to GHMC and HMWSSB.",
       },
-      { property: "og:title", content: "Nagaram AI — Hyderabad civic & travel assistant" },
+      { property: "og:title", content: "Nagaram AI — Hyderabad routes, traffic & civic complaints" },
       {
         property: "og:description",
         content:
-          "Plan routes, predict congestion and file civic complaints in Telugu or English.",
+          "A cinematic Hyderabad companion: Telugu and English voice assistant, best bus and metro routes, congestion predictions, and water and garbage complaints routed to GHMC and HMWSSB.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:title", content: "Nagaram AI — Hyderabad routes, traffic & civic complaints" },
+      { name: "twitter:description", content: "A cinematic Hyderabad companion: Telugu and English voice assistant, best bus and metro routes, congestion predictions, and water and garbage complaints routed to GHMC and HMWSSB." },
     ],
     links: [
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
