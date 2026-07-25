@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { convertToModelMessages, streamText, type UIMessage } from "ai";
+import type { Json } from "@/integrations/supabase/types";
 
 type Body = { messages?: UIMessage[]; threadId?: string; language?: "en" | "te" };
 
@@ -60,7 +61,7 @@ export const Route = createFileRoute("/api/chat")({
             user_id: auth.userId,
             client_message_id: last.id,
             role: "user",
-            parts: last.parts as unknown as Record<string, unknown>[],
+            parts: last.parts as unknown as Json,
           });
           if (error) console.error("[chat] failed to persist user message", error.message);
 
@@ -81,7 +82,7 @@ export const Route = createFileRoute("/api/chat")({
           result = streamText({
             model: gateway("google/gemini-3.6-flash"),
             system: systemPrompt(language),
-            messages: convertToModelMessages(messages),
+            messages: await convertToModelMessages(messages),
           });
         } catch (err) {
           console.error("[chat] model error", err);
@@ -96,7 +97,7 @@ export const Route = createFileRoute("/api/chat")({
               user_id: auth.userId,
               client_message_id: responseMessage.id,
               role: "assistant",
-              parts: responseMessage.parts as unknown as Record<string, unknown>[],
+              parts: responseMessage.parts as unknown as Json,
             });
             if (error) console.error("[chat] failed to persist assistant message", error.message);
             await auth.client

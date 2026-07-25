@@ -1,6 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { channelForCategory } from "./hyderabad";
+import type { Json } from "@/integrations/supabase/types";
 
 export type ComplaintAnalysis = {
   category: string;
@@ -188,7 +189,7 @@ export const submitComplaint = createServerFn({ method: "POST" })
         department: a.department,
         channel_url: a.channelUrl,
         channel_phone: a.channelPhone,
-        ai_analysis: a as unknown as Record<string, unknown>,
+        ai_analysis: a as unknown as Json,
       })
       .select(
         "id, reference_code, category, title, description, area, landmark, photo_url, severity, priority, department, channel_url, channel_phone, status, created_at",
