@@ -14,7 +14,230 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      chat_messages: {
+        Row: {
+          client_message_id: string | null
+          created_at: string
+          id: string
+          parts: Json
+          role: string
+          thread_id: string
+          user_id: string
+        }
+        Insert: {
+          client_message_id?: string | null
+          created_at?: string
+          id?: string
+          parts?: Json
+          role: string
+          thread_id: string
+          user_id: string
+        }
+        Update: {
+          client_message_id?: string | null
+          created_at?: string
+          id?: string
+          parts?: Json
+          role?: string
+          thread_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "chat_messages_thread_id_fkey"
+            columns: ["thread_id"]
+            isOneToOne: false
+            referencedRelation: "chat_threads"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      chat_threads: {
+        Row: {
+          created_at: string
+          id: string
+          language: string
+          title: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          language?: string
+          title?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          language?: string
+          title?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      complaints: {
+        Row: {
+          ai_analysis: Json | null
+          area: string | null
+          category: string
+          channel_phone: string | null
+          channel_url: string | null
+          created_at: string
+          department: string
+          description: string
+          id: string
+          landmark: string | null
+          lat: number | null
+          lng: number | null
+          photo_url: string | null
+          priority: string
+          reference_code: string
+          severity: number
+          status: string
+          title: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          ai_analysis?: Json | null
+          area?: string | null
+          category: string
+          channel_phone?: string | null
+          channel_url?: string | null
+          created_at?: string
+          department?: string
+          description: string
+          id?: string
+          landmark?: string | null
+          lat?: number | null
+          lng?: number | null
+          photo_url?: string | null
+          priority?: string
+          reference_code?: string
+          severity?: number
+          status?: string
+          title: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          ai_analysis?: Json | null
+          area?: string | null
+          category?: string
+          channel_phone?: string | null
+          channel_url?: string | null
+          created_at?: string
+          department?: string
+          description?: string
+          id?: string
+          landmark?: string | null
+          lat?: number | null
+          lng?: number | null
+          photo_url?: string | null
+          priority?: string
+          reference_code?: string
+          severity?: number
+          status?: string
+          title?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      places: {
+        Row: {
+          area: string
+          category: string
+          description: string | null
+          id: string
+          lat: number
+          lng: number
+          name: string
+          name_te: string | null
+        }
+        Insert: {
+          area: string
+          category: string
+          description?: string | null
+          id?: string
+          lat: number
+          lng: number
+          name: string
+          name_te?: string | null
+        }
+        Update: {
+          area?: string
+          category?: string
+          description?: string | null
+          id?: string
+          lat?: number
+          lng?: number
+          name?: string
+          name_te?: string | null
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          full_name: string | null
+          id: string
+          preferred_language: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          full_name?: string | null
+          id: string
+          preferred_language?: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          full_name?: string | null
+          id?: string
+          preferred_language?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      traffic_history: {
+        Row: {
+          avg_speed_kmph: number
+          congestion_index: number
+          corridor: string
+          day_type: string
+          from_area: string
+          hour: number
+          id: string
+          to_area: string
+        }
+        Insert: {
+          avg_speed_kmph: number
+          congestion_index: number
+          corridor: string
+          day_type: string
+          from_area: string
+          hour: number
+          id?: string
+          to_area: string
+        }
+        Update: {
+          avg_speed_kmph?: number
+          congestion_index?: number
+          corridor?: string
+          day_type?: string
+          from_area?: string
+          hour?: number
+          id?: string
+          to_area?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
