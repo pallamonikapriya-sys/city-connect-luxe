@@ -1,6 +1,10 @@
 import { createServerFn } from "@tanstack/react-start";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
-import type { UIMessage } from "ai";
+export type StoredMessage = {
+  id: string;
+  role: "user" | "assistant" | "system";
+  parts: { type: string; text?: string }[];
+};
 
 export type ThreadRow = {
   id: string;
@@ -61,7 +65,7 @@ export const deleteThread = createServerFn({ method: "POST" })
 export const getThreadMessages = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .inputValidator((input: { threadId: string }) => input)
-  .handler(async ({ data, context }): Promise<{ thread: ThreadRow | null; messages: UIMessage[] }> => {
+  .handler(async ({ data, context }): Promise<{ thread: ThreadRow | null; messages: StoredMessage[] }> => {
     const { data: thread } = await context.supabase
       .from("chat_threads")
       .select("id, title, language, updated_at")
@@ -77,10 +81,10 @@ export const getThreadMessages = createServerFn({ method: "GET" })
       .order("created_at", { ascending: true });
     if (error) throw new Error(error.message);
 
-    const messages: UIMessage[] = (rows ?? []).map((r) => ({
+    const messages: StoredMessage[] = (rows ?? []).map((r) => ({
       id: r.id,
-      role: r.role as UIMessage["role"],
-      parts: (r.parts as UIMessage["parts"]) ?? [],
+      role: r.role as StoredMessage["role"],
+      parts: (r.parts as StoredMessage["parts"]) ?? [],
     }));
     return { thread, messages };
   });
