@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TravelRouteImport } from './routes/travel'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as PlacesRouteImport } from './routes/places'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
@@ -23,6 +24,11 @@ import { Route as AuthenticatedAssistantThreadIdRouteImport } from './routes/_au
 const TravelRoute = TravelRouteImport.update({
   id: '/travel',
   path: '/travel',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PlacesRoute = PlacesRouteImport.update({
@@ -76,6 +82,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/places': typeof PlacesRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/travel': typeof TravelRoute
   '/complaints': typeof AuthenticatedComplaintsRoute
   '/report': typeof AuthenticatedReportRoute
@@ -87,6 +94,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/places': typeof PlacesRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/travel': typeof TravelRoute
   '/complaints': typeof AuthenticatedComplaintsRoute
   '/report': typeof AuthenticatedReportRoute
@@ -100,6 +108,7 @@ export interface FileRoutesById {
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
   '/places': typeof PlacesRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/travel': typeof TravelRoute
   '/_authenticated/complaints': typeof AuthenticatedComplaintsRoute
   '/_authenticated/report': typeof AuthenticatedReportRoute
@@ -113,6 +122,7 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/places'
+    | '/sitemap.xml'
     | '/travel'
     | '/complaints'
     | '/report'
@@ -124,6 +134,7 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/places'
+    | '/sitemap.xml'
     | '/travel'
     | '/complaints'
     | '/report'
@@ -136,6 +147,7 @@ export interface FileRouteTypes {
     | '/_authenticated'
     | '/auth'
     | '/places'
+    | '/sitemap.xml'
     | '/travel'
     | '/_authenticated/complaints'
     | '/_authenticated/report'
@@ -149,6 +161,7 @@ export interface RootRouteChildren {
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AuthRoute: typeof AuthRoute
   PlacesRoute: typeof PlacesRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TravelRoute: typeof TravelRoute
   ApiChatRoute: typeof ApiChatRoute
 }
@@ -160,6 +173,13 @@ declare module '@tanstack/react-router' {
       path: '/travel'
       fullPath: '/travel'
       preLoaderRoute: typeof TravelRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/places': {
@@ -250,6 +270,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AuthRoute: AuthRoute,
   PlacesRoute: PlacesRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   TravelRoute: TravelRoute,
   ApiChatRoute: ApiChatRoute,
 }
