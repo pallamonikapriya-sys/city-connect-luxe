@@ -15,6 +15,8 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
+import { Route as AuthenticatedReportRouteImport } from './routes/_authenticated/report'
+import { Route as AuthenticatedComplaintsRouteImport } from './routes/_authenticated/complaints'
 import { Route as AuthenticatedAssistantIndexRouteImport } from './routes/_authenticated/assistant.index'
 import { Route as AuthenticatedAssistantThreadIdRouteImport } from './routes/_authenticated/assistant.$threadId'
 
@@ -47,6 +49,16 @@ const ApiChatRoute = ApiChatRouteImport.update({
   path: '/api/chat',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedReportRoute = AuthenticatedReportRouteImport.update({
+  id: '/report',
+  path: '/report',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedComplaintsRoute = AuthenticatedComplaintsRouteImport.update({
+  id: '/complaints',
+  path: '/complaints',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedAssistantIndexRoute =
   AuthenticatedAssistantIndexRouteImport.update({
     id: '/assistant/',
@@ -65,6 +77,8 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/places': typeof PlacesRoute
   '/travel': typeof TravelRoute
+  '/complaints': typeof AuthenticatedComplaintsRoute
+  '/report': typeof AuthenticatedReportRoute
   '/api/chat': typeof ApiChatRoute
   '/assistant/$threadId': typeof AuthenticatedAssistantThreadIdRoute
   '/assistant/': typeof AuthenticatedAssistantIndexRoute
@@ -74,6 +88,8 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/places': typeof PlacesRoute
   '/travel': typeof TravelRoute
+  '/complaints': typeof AuthenticatedComplaintsRoute
+  '/report': typeof AuthenticatedReportRoute
   '/api/chat': typeof ApiChatRoute
   '/assistant/$threadId': typeof AuthenticatedAssistantThreadIdRoute
   '/assistant': typeof AuthenticatedAssistantIndexRoute
@@ -85,6 +101,8 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/places': typeof PlacesRoute
   '/travel': typeof TravelRoute
+  '/_authenticated/complaints': typeof AuthenticatedComplaintsRoute
+  '/_authenticated/report': typeof AuthenticatedReportRoute
   '/api/chat': typeof ApiChatRoute
   '/_authenticated/assistant/$threadId': typeof AuthenticatedAssistantThreadIdRoute
   '/_authenticated/assistant/': typeof AuthenticatedAssistantIndexRoute
@@ -96,6 +114,8 @@ export interface FileRouteTypes {
     | '/auth'
     | '/places'
     | '/travel'
+    | '/complaints'
+    | '/report'
     | '/api/chat'
     | '/assistant/$threadId'
     | '/assistant/'
@@ -105,6 +125,8 @@ export interface FileRouteTypes {
     | '/auth'
     | '/places'
     | '/travel'
+    | '/complaints'
+    | '/report'
     | '/api/chat'
     | '/assistant/$threadId'
     | '/assistant'
@@ -115,6 +137,8 @@ export interface FileRouteTypes {
     | '/auth'
     | '/places'
     | '/travel'
+    | '/_authenticated/complaints'
+    | '/_authenticated/report'
     | '/api/chat'
     | '/_authenticated/assistant/$threadId'
     | '/_authenticated/assistant/'
@@ -173,6 +197,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiChatRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/report': {
+      id: '/_authenticated/report'
+      path: '/report'
+      fullPath: '/report'
+      preLoaderRoute: typeof AuthenticatedReportRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/complaints': {
+      id: '/_authenticated/complaints'
+      path: '/complaints'
+      fullPath: '/complaints'
+      preLoaderRoute: typeof AuthenticatedComplaintsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/assistant/': {
       id: '/_authenticated/assistant/'
       path: '/assistant'
@@ -191,11 +229,15 @@ declare module '@tanstack/react-router' {
 }
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedComplaintsRoute: typeof AuthenticatedComplaintsRoute
+  AuthenticatedReportRoute: typeof AuthenticatedReportRoute
   AuthenticatedAssistantThreadIdRoute: typeof AuthenticatedAssistantThreadIdRoute
   AuthenticatedAssistantIndexRoute: typeof AuthenticatedAssistantIndexRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedComplaintsRoute: AuthenticatedComplaintsRoute,
+  AuthenticatedReportRoute: AuthenticatedReportRoute,
   AuthenticatedAssistantThreadIdRoute: AuthenticatedAssistantThreadIdRoute,
   AuthenticatedAssistantIndexRoute: AuthenticatedAssistantIndexRoute,
 }
